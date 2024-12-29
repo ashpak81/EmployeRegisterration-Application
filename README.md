@@ -1,91 +1,75 @@
+# Employee Registration Application - Backend
 
-# React Frontend Application
+This is the backend part of the Employee Registration Application, built using Spring Boot.
 
-This is the frontend part of the Employee Registration Application, built using React.
+---
 
 ## Prerequisites
 
 Before starting, ensure you have the following installed on your system:
 
-- **Node Version Manager (NVM)**: To manage Node.js versions.
-- **Node.js v20**: Install using NVM.
-- **npm (Node Package Manager)**: Comes bundled with Node.js.
+- **Java 17**: Required to run the Spring Boot application.
+- **Maven**: For dependency management and building the project.
+- **PostgreSQL**: As the database for the application.
 
 ---
 
 ## Setup Instructions
-
-Follow these steps to set up and run the project:
 
 ### Step 1: Clone the Repository
 
 1. Clone the repository to your local machine:
    ```bash
    git clone https://github.com/your-username/EmployeRegistration-Application.git
-   cd EmployeRegistration-Application/frontend
+   cd EmployeRegistration-Application/empApplication
    ```
 
 ---
 
-### Step 2: Use NVM to Set Node.js Version
+### Step 2: Set Up the Database
 
-1. Verify that NVM is installed:
-   ```bash
-   nvm --version
+1. Ensure PostgreSQL is installed and running.
+2. Create a database for the application:
+   ```sql
+   CREATE DATABASE employeeregistration;
    ```
-
-2. Install Node.js v20 (if not already installed):
-   ```bash
-   nvm install 20
-   ```
-
-3. Use Node.js v20 for the project:
-   ```bash
-   nvm use 20
-   ```
-
----
-
-### Step 3: Install Dependencies
-
-1. Install project dependencies using `npm`:
-   ```bash
-   npm install
+3. Update the database connection details in `src/main/resources/application.properties`:
+   ```properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/employeeregistration
+   spring.datasource.username=your-username
+   spring.datasource.password=your-password
+   spring.jpa.hibernate.ddl-auto=update
    ```
 
 ---
 
-### Step 4: Start the Development Server
+### Step 3: Build and Run the Application
 
-1. Start the React development server:
+1. Build the project using Maven:
    ```bash
-   npm start
+   mvn clean install
    ```
 
-2. Open the application in your browser at:
+2. Run the Spring Boot application:
+   ```bash
+   mvn spring-boot:run
    ```
-   http://localhost:3000
+
+3. The backend server will start at:
+   ```
+   http://localhost:8080
    ```
 
 ---
 
-## Build for Production
+## API Endpoints
 
-To build the project for production, run:
-```bash
-npm run build
-```
-The output will be located in the `build/` directory.
+### Employee Endpoints
 
----
-
-## Scripts
-
-Below are the common scripts used in this project:
-
-- `npm start`: Runs the development server.
-- `npm run build`: Builds the project for production.
-- `npm test`: Runs the tests (if implemented).
+- **POST** `/employee`: Add a new employee.
+- **GET** `/employee/{id}`: Retrieve employee details by ID.
+- **PATCH** `/employee/{id}`: Update employee details by ID.
+- **DELETE** `/employee/{id}`: Delete an employee by ID.
 
 ---
 
@@ -94,31 +78,67 @@ Below are the common scripts used in this project:
 The main directories and files in this project:
 
 ```
-frontend/
-├── public/          # Static assets
-├── src/             # Source code
-│   ├── components/  # React components
-│   ├── pages/       # Application pages
-│   ├── App.js       # Main app component
-│   ├── index.js     # Entry point
-├── package.json     # Project metadata and dependencies
-└── README.md        # Project instructions
+empApplication/
+├── src/
+│   ├── main/
+│   │   ├── java/                   # Java source code
+│   │   │   ├── com.example.employee/ # Main application package
+│   │   │   │   ├── controller/    # REST controllers
+│   │   │   │   ├── service/       # Service layer
+│   │   │   │   ├── model/         # Entity classes
+│   │   │   │   ├── repository/    # JPA repositories
+│   │   ├── resources/             # Configuration files
+│   │       ├── application.properties # Application configuration
+├── pom.xml                        # Maven project file
 ```
+
+---
+
+## Dependencies
+
+The project uses the following key dependencies:
+
+- **Spring Boot**: For the application framework.
+- **Spring Data JPA**: For ORM and database access.
+- **PostgreSQL Driver**: For connecting to the PostgreSQL database.
+- **Lombok**: To reduce boilerplate code.
 
 ---
 
 ## Troubleshooting
 
-If you encounter any issues:
+1. Ensure Java 17 is installed and configured properly:
+   ```bash
+   java -version
+   ```
+   The output should show Java 17.
 
-- Ensure Node.js version is set to 20 using `nvm use 20`.
-- Run `npm install` to ensure all dependencies are installed.
-- Verify the backend service is running for API calls.
+2. Verify that the PostgreSQL service is running:
+   ```bash
+   sudo service postgresql status
+   application.property postgresql authentication details 
+   ```
+
+3. If the application fails to start, check the `application.properties` file for correct database credentials.
 
 ---
 
 ## Contribution
 
-Feel free to open issues or create pull requests for any improvements or bug fixes.
+Feel free to fork this repository and create pull requests for any improvements or bug fixes.
 
 ---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+```
+
+---
+
+### Notes:
+- Replace `your-username` in the `git clone` URL with your GitHub username.
+- Update the "Contribution" and "License" sections if necessary.
+
+Let me know if you need any changes!
